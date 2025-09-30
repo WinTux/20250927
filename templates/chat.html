@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Odontológica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo_adicional.css') }}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                Clínica Odontológica
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <h1 class="text-center">Bienvenido a la Clínica Odontológica</h1>
+        <p class="text-center">Estamos aquí para cuidar tu sonrisa.</p>
+    </div>
+
+    <!-- Chat floating button -->
+    <button class="chat-button" id="open-chat">
+        💬
+    </button>
+
+    <!-- Chat window -->
+    <div class="chat-window d-flex flex-column" id="chat-window">
+        <div class="chat-header">
+            Asistente Virtual
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message bot">Hola ¿En qué puedo ayudarte hoy?</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" class="form-control" placeholder="Escribe tu mensaje...">
+            <button id="send-chat" class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Clínica Odontológica Srta. Caries. Todos los derechos reservados.
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+    <!-- Chat script -->
+    <script>
+        const openChatBtn = document.getElementById('open-chat');
+        const chatWindow = document.getElementById('chat-window');
+        const sendChatBtn = document.getElementById('send-chat');
+        const chatInput = document.getElementById('chat-input');
+        const chatBody = document.getElementById('chat-body');
+
+        openChatBtn.addEventListener('click', () => {
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        sendChatBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function appendMessage(text, sender) {
+            const wrapper = document.createElement('div');
+            const message = document.createElement('div');
+            const timestamp = document.createElement('div');
+
+            wrapper.className = 'chat-message';
+
+            message.className = 'message-block ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            message.innerText = text;
+
+            timestamp.className = 'message-timestamp';
+            timestamp.innerText = getCurrentTime();
+
+            wrapper.appendChild(message);
+            wrapper.appendChild(timestamp);
+            chatBody.appendChild(wrapper);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            appendMessage(message, 'user');
+            chatInput.value = '';
+
+            fetch('/consulta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                appendMessage(data.response, 'bot');
+            })
+            .catch(err => {
+                appendMessage("Ocurrió un error al procesar tu mensaje.", 'bot');
+                console.error(err);
+            });
+        }
+    </script>
+
+</body>
+</html>

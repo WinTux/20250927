@@ -1,0 +1,101 @@
+body {
+        padding-bottom: 100px;
+    }
+
+    .chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: #0d6efd;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+    }
+
+    .chat-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 320px;
+        max-height: 480px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+
+    .chat-header {
+        background-color: #0d6efd;
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .chat-body {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+        font-size: 14px;
+        background-color: #f1f1f1;
+    }
+
+    .chat-footer {
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        display: flex;
+        gap: 5px;
+    }
+
+    .message-block {
+        margin-bottom: 12px;
+        max-width: 85%;
+        padding: 8px 12px;
+        border-radius: 12px;
+        position: relative;
+        display: inline-block;
+        word-wrap: break-word;
+    }
+
+    .message-timestamp {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+        text-align: right;
+    }
+
+    .user-message {
+        background-color: #d1e7dd;
+        color: #000;
+        margin-left: auto;
+        border-top-right-radius: 0;
+    }
+
+    .bot-message {
+        background-color: #ffffff;
+        color: #000;
+        margin-right: auto;
+        border-top-left-radius: 0;
+        border: 1px solid #ddd;
+    }
+
+    footer {
+        position: relative;
+        margin-top: 50px;
+        text-align: center;
+        padding: 20px 0;
+        background-color: #f8f9fa;
+    }
