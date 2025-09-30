@@ -1,4 +1,4 @@
-# Proyecto IA Asistente
+# Proyecto IA Asistente mecánico "Juan Mecánico"
 
 Este proyecto es una aplicación web con Python / Flask para un asistente de IA, usando una base de datos SQLite estática.  
 Aquí están las instrucciones para configurar, ejecutar y entender la estructura del proyecto.
@@ -11,10 +11,10 @@ Aquí están las instrucciones para configurar, ejecutar y entender la estructur
 ├── herramientas/
 │ └── setup_db.py ← script para crear la base de datos SQLite
 ├── static/ ← archivos estáticos (CSS, JS, imágenes, etc.)
-├── templates/ ← plantillas HTML (Jinja2)
+├── templates/ ← plantillas HTML
 ├── main.py ← punto de entrada de la aplicación Flask
 ├── requisitos.txt ← listado de dependencias (requirements)
-├── taller.db ← base de datos SQLite generada (archivo de ejemplo)
+├── taller.db ← base de datos SQLite generada (archivo generado)
 └── README.md ← este documento
 ```
 
@@ -54,7 +54,14 @@ pip install -r requisitos.txt
 ```bash
 python3 herramientas/setup_db.py
 ```
-### 5. Iniciar la aplicación
-´´´bash
+### 5. Crear las variables de entorno de keys GROQ y GMAIL
+```bash
+export GROQ_API_KEY="gsk_..."
+export EMAIL_PASSWORD='abcd wxyz ...'
+echo "$GROK_API_KEY"
+echo "$EMAIL_PASSWORD"
+```
+### 6. Iniciar la aplicación
+```bash
 python3 main.py
-´´´
+```
