@@ -7,39 +7,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='estilo_adicional.css') }}">
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
-            Clínica Odontológica
-        </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca de</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">Cerrar sesión</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='imagenes/logo.webp') }}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                Taller de Juan Mecánico
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <!-- botón para mi modal -->
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#acercaDeModal">Acerca de</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
 
     <!-- Contenido principal -->
-    <div class="container mt-5">
-        <h1 class="text-center">Bienvenido a la Clínica Odontológica</h1>
-        <p class="text-center">Estamos aquí para cuidar tu sonrisa.</p>
+    <div class="container mt-5 text-center text-white">
+        <h1 class="fw-bold">Bienvenido al taller de Juan Mecánico</h1>
+        <p>Estamos aquí cuando el pistón ya no pistea.</p>
     </div>
 
-    <!-- Chat floating button -->
+
+    <!-- botón de Chat -->
     <button class="chat-button" id="open-chat">
         💬
     </button>
 
-    <!-- Chat window -->
+    <!-- Chat -->
     <div class="chat-window d-flex flex-column" id="chat-window">
         <div class="chat-header">
             Asistente Virtual
@@ -53,13 +53,39 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2025 Clínica Odontológica Srta. Caries. Todos los derechos reservados.
+    <footer class="bg-light text-center text-muted py-3 fixed-bottom shadow-sm">
+        <div class="container">
+            <small>© 2025 Rubén Gonzalo Soria Soria</small>
+        </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+    <!-- Modal Acerca de -->
+    <div class="modal fade" id="acercaDeModal" tabindex="-1" aria-labelledby="acercaDeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="acercaDeLabel">Acerca de</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <!-- Foto personal -->
+                    <img src="{{ url_for('static', filename='imagenes/foto_ruben.jpg') }}" alt="Foto de Rubén" class="rounded-circle mb-3" width="120" height="120">
+                    
+                    <!-- Información personal -->
+                    <h5>Rubén Gonzalo Soria Soria</h5>
+                    <p class="mb-1">Profesión: Lic. en Informática</p>
+                    <p class="mb-1">Teléfono: +591 71255521</p>
+                    <p class="mb-3">Email: rusok.software@gmail.com</p>
+                    <p class="mb-0">TRABAJO FINAL DE INTELIGENCIA ARTIFICIAL</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Chat script -->
     <script>
