@@ -1,10 +1,67 @@
-Para generar la base de datos estática utilicé el script:
-python3 herramientas/setup_db.py
+# Proyecto IA Asistente mecánico "Juan Mecánico"
 
-Para iniciar el programa primero se clona este proyecto.
-Luego se inicia un entorno virtual y luego se ejecuta
-pip install requerimientos.txt
-Para generar la base de datos estática se usa el script:
+Este proyecto es una aplicación web con Python / Flask para un asistente de IA, usando una base de datos SQLite estática.  
+Aquí están las instrucciones para configurar, ejecutar y entender la estructura del proyecto.
+
+---
+
+## Estructura del proyecto
+```
+20250927/ ← raíz del proyecto
+├── herramientas/
+│ └── setup_db.py ← script para crear la base de datos SQLite
+├── static/ ← archivos estáticos (CSS, JS, imágenes, etc.)
+├── templates/ ← plantillas HTML
+├── main.py ← punto de entrada de la aplicación Flask
+├── requisitos.txt ← listado de dependencias (requirements)
+├── taller.db ← base de datos SQLite generada (archivo generado)
+└── README.md ← este documento
+```
+
+Aquí algunas notas sobre carpetas clave:
+
+- **herramientas/**: contiene utilidades del proyecto, como el script para generar la DB.  
+- **static/**: contiene recursos estáticos (CSS, JS, imágenes).  
+- **templates/**: contiene los archivos de plantilla `.html` que Flask usará con `render_template`.  
+- **main.py**: arranca la aplicación Flask.  
+- **taller.db**: es el archivo de base de datos SQLite resultante después de ejecutar el script `setup_db.py`.  
+- **requisitos.txt**: lista de dependencias del proyecto (versión de cada paquete, etc.).
+
+---
+
+## Instalación y puesta en marcha
+
+Sigue estos pasos para levantar el proyecto en tu máquina local:
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/WinTux/20250927.git
+cd 20250927
+```
+### 2. Crear un entorno virtual
+```bash
+python3 -m venv venv
+source venv/bin/activate     # En Windows: venv\Scripts\activate
+```
+### 3.Instalar dependencias
+```bash
+pip install -r requisitos.txt
+```
+
+### 4. Generar la base de datos
+3 Se ejecuta el siguiente comando:
+```bash
 python3 herramientas/setup_db.py
-Y a continuación se inicia el servidor con
+```
+### 5. Crear las variables de entorno de keys GROQ y GMAIL
+```bash
+export GROQ_API_KEY="gsk_..."
+export EMAIL_PASSWORD='abcd wxyz ...'
+echo "$GROK_API_KEY"
+echo "$EMAIL_PASSWORD"
+```
+### 6. Iniciar la aplicación
+```bash
 python3 main.py
+```
