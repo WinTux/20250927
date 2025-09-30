@@ -134,19 +134,28 @@
 
             appendMessage(message, 'user');
             chatInput.value = '';
+            // Mensaje de "escribiendo..."
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chat-message bot';
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.innerText = 'Escribiendo...';
+            chatBody.appendChild(typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight;
 
-            fetch('/consulta', {
+            fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ prompt: message })
+                body: JSON.stringify({ mensajeUsuario: message })
             })
             .then(res => res.json())
             .then(data => {
+                document.getElementById('typing-indicator')?.remove();
                 appendMessage(data.response, 'bot');
             })
             .catch(err => {
+                document.getElementById('typing-indicator')?.remove();
                 appendMessage("Ocurrió un error al procesar tu mensaje.", 'bot');
                 console.error(err);
             });
