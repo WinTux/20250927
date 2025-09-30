@@ -65,7 +65,7 @@ historial_mensajes = [
             - Si el usuario te pregunta por **la dirección del taller** (ejemplo: '¿dónde se encuentra el taller?', '¿dónde están?'), llama a 'direccion_taller'
             - Si el usuario pregunta por **la hora actual** llama a 'hora_actual'
             - Si el usuario pregunta por **la fecha actual** llama a 'fecha_actual'
-            - si el usuario pregunta por **enviar un correo** llama a 'enviar_correo(destinatario', 'asunto' y 'mensajeCorreo') y una vez lo hayas enviado, avisas que ya lo hiciste.
+            - si el usuario pregunta por **enviar un correo** te aseguras de tener el email del usuario y como asunto pondrás 'Taller Juan Mecánico' mientras en el mensaje de correo das un resumen de lo que se esté hablando en ese momento y procedes a llamar a 'enviar_correo(destinatario', 'asunto' y 'mensajeCorreo') y una vez lo hayas enviado, avisas que ya lo hiciste.
             """}
     ]
 
@@ -88,7 +88,7 @@ def fecha_actual():
 def enviar_correo(destinatario, asunto, mensajeCorreo):
     remitente = "rsorias@fcpn.edu.bo"
     password = os.getenv("EMAIL_PASSWORD")
-    mensaje = MIMEMultipart()()
+    mensaje = MIMEMultipart()
     mensaje['From'] = remitente
     mensaje['To'] = destinatario
     mensaje['Subject'] = asunto
@@ -98,7 +98,6 @@ def enviar_correo(destinatario, asunto, mensajeCorreo):
         servidor.login(remitente, password)
         servidor.sendmail(remitente, destinatario, mensaje.as_string())
         print("Correo enviado exitosamente a", destinatario)
-    print(respuesta.message.content)
     return "Correo enviado exitosamente a " + destinatario
 
 def chatAgente(mensajeUsuario):
@@ -183,10 +182,11 @@ def chatAgente(mensajeUsuario):
             function_name = tool_call.function.name
             function_to_call = funciones_llamadas[function_name]
             function_args = json.loads(tool_call.function.arguments)
-            try:
+            if function_args:
                 function_response = function_to_call(**function_args)
-            except TypeError as e:
+            else:
                 function_response = function_to_call()
+
             historial_mensajes.append({
                 "role": "tool",
                 "name": function_name,
